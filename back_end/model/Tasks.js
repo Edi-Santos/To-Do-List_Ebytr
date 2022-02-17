@@ -17,7 +17,10 @@ const getAllTasks = async () => {
 const addNewTask = async (taskData) => {
   try {
     const db = await connection();
-    const newTask = await db.collection(COLLECTION).insertOne(taskData);
+    const newTask = await db.collection(COLLECTION).insertOne({ 
+      ...taskData,
+      createdAt: new Date(),
+    });
 
     const taskAdded = {
       id: newTask.insertedId,
