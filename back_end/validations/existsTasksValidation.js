@@ -12,7 +12,7 @@ const findTaskById = async (id) => {
 };
 // ===
 
-const deleteValidate = async (id) => {
+const existsValidate = async (id) => {
   const task = await findTaskById(id);
   
   console.log(task);
@@ -22,12 +22,12 @@ const deleteValidate = async (id) => {
   return true;
 };
 
-const deleteTasksValidation = async (id) => {
-  const validatingDelete = await deleteValidate(id);
+const existsTasksValidation = async (id) => {
+  const validatingDelete = await existsValidate(id);
 
   if (validatingDelete !== true) return validatingDelete;
 
   return true;
 };
 
-module.exports = deleteTasksValidation;
+module.exports = existsTasksValidation;
