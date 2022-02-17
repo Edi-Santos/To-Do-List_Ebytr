@@ -18,9 +18,15 @@ const descriptionMustBeString = {
   status: 400,
 };
 
+const taskNotExists = {
+  message: 'Task not exists',
+  status: 409,
+};
+
 module.exports = {
   titleNotExists,
   titleMustBeString,
   descriptionNotExists,
   descriptionMustBeString,
+  taskNotExists,
 };

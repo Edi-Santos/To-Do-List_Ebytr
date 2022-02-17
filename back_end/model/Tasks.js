@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
 const COLLECTION = 'Tasks';
@@ -30,7 +31,19 @@ const addNewTask = async (taskData) => {
   }
 };
 
+const deleteTask = async (id) => {
+  try {
+    const db = await connection();
+    await db.collection(COLLECTION).deleteOne({ _id: new ObjectId(id) });
+
+    return { message: 'Task deleted', status: 200 };
+  } catch (err) {
+    return console.log(`erro no Model || ${err.message}`);
+  }
+};
+
 module.exports = {
   getAllTasks,
   addNewTask,
+  deleteTask,
 };

@@ -30,7 +30,29 @@ const addNewTask = async (req, res) => {
   }
 };
 
+const deleteTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const taskDeleted = await Tasks.deleteTask(id);
+
+    if (taskDeleted.message) {
+      const { status, message } = taskDeleted;
+
+      return res.status(status).json({ message });
+    }
+
+    const { status, message } = taskDeleted;
+
+    return res.status(status).json({ message });
+  } catch (err) {
+    console.log(`erro no Controller || ${err.message}`);
+    return res.status(500).json({ message: 'Problemas internos' });
+  }
+};
+
 module.exports = {
   getAllTasks,
   addNewTask,
+  deleteTask,
 };

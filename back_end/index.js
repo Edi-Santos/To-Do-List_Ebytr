@@ -11,6 +11,7 @@ app.use(cors());
 
 app.get('/tasks', Task.getAllTasks);
 app.post('/tasks', Task.addNewTask);
+app.delete('/tasks/:id', Task.deleteTask);
 
 app.listen(PORT, () => {
   console.log(`Servidor online na porta ${PORT}`);
