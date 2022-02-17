@@ -51,8 +51,29 @@ const deleteTask = async (req, res) => {
   }
 };
 
+const updateTask = async (req, res) => {
+  const { id } = req.params;
+  const { title, description } = req.body;
+
+  try {
+    const upTask = await Tasks.updateTask(id, { title, description });
+
+    if (upTask.message) {
+      const { status, message } = upTask;
+
+      return res.status(status).json({ message });
+    }
+
+    return res.status(201).json(upTask);
+  } catch (err) {
+    console.log(`erro no Controller || ${err.message}`);
+    return res.status(500).json({ message: 'Problemas internos' });
+  }
+};
+
 module.exports = {
   getAllTasks,
   addNewTask,
   deleteTask,
+  updateTask,
 };

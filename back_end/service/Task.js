@@ -1,6 +1,6 @@
 const Tasks = require('../model/Tasks');
 const postTasksValidation = require('../validations/postTasksValidation');
-const deleteTasksValidation = require('../validations/deleteTasksValidation');
+const existsTasksValidation = require('../validations/existsTasksValidation');
 
 const getAllTasks = async () => {
   try {
@@ -29,7 +29,7 @@ const addNewTask = async (taskData) => {
 
 const deleteTask = async (id) => {
   try {
-    const validating = await deleteTasksValidation(id);
+    const validating = await existsTasksValidation(id);
 
     if (validating !== true) return validating;
     const deletingTask = await Tasks.deleteTask(id);
@@ -40,8 +40,23 @@ const deleteTask = async (id) => {
   }
 };
 
+const updateTask = async (id, { title, description }) => {
+  try {
+    const validating = await existsTasksValidation(id);
+
+    if (validating !== true) return validating;
+    
+    const updatingTask = Tasks.updateTask(id, { title, description });
+
+    return updatingTask;
+  } catch (err) {
+    return console.log(`erro no Service || ${err.message}`);
+  }
+};
+
 module.exports = {
   getAllTasks,
   addNewTask,
   deleteTask,
+  updateTask,
 };
