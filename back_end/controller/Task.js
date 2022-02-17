@@ -11,6 +11,26 @@ const getAllTasks = async (_req, res) => {
   }
 };
 
+const addNewTask = async (req, res) => {
+  const taskData = req.body;
+
+  try {
+    const newTask = await Tasks.addNewTask(taskData);
+
+    if (newTask.message) {
+      const { status, message } = newTask;
+
+      return res.status(status).json({ message });
+    }
+
+    return res.status(201).json(newTask);
+  } catch (err) {
+    console.log(`erro no Controller || ${err.message}`);
+    return res.status(500).json({ message: 'Problemas internos' });
+  }
+};
+
 module.exports = {
   getAllTasks,
+  addNewTask,
 };

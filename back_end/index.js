@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/tasks', Task.getAllTasks);
+app.post('/tasks', Task.addNewTask);
 
 app.listen(PORT, () => {
   console.log(`Servidor online na porta ${PORT}`);
